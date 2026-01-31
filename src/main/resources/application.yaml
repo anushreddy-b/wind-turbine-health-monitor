@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: wind-turbine-health-monitor
+  datasource:
+    url: jdbc:mysql://localhost:3306/turbine
+    username: root
+    password: Pass@123
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+
+  server:
+    port: 8000
