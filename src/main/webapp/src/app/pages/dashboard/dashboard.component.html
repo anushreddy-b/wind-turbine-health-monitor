@@ -1,32 +1,145 @@
-<h1>Wind Turbine Live Dashboard</h1>
+<div class="dashboard">
+  <section class="summary-grid">
+    <div class="summary-card">
+      <div class="label">Total turbines</div>
+      <div class="value">{{ overview?.totalTurbines || 0 }}</div>
+      <div class="meta">Fleet inventory</div>
+      <div class="card-accent"></div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Reporting now</div>
+      <div class="value">{{ overview?.reportingTurbines || 0 }}</div>
+      <div class="meta">Active telemetry</div>
+      <div class="card-accent accent-blue"></div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Anomaly alerts</div>
+      <div class="value">{{ overview?.anomalyCount || 0 }}</div>
+      <div class="meta">Last hour</div>
+      <div class="card-accent accent-orange"></div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Avg power</div>
+      <div class="value">{{ overview?.avgPower | number: '1.0-0' }} kW</div>
+      <div class="meta">Fleet average</div>
+      <div class="card-accent accent-green"></div>
+    </div>
+  </section>
 
-<div *ngIf="latest">
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <h2>Live turbine pulse</h2>
+        <p>Track the latest telemetry snapshot.</p>
+      </div>
+      <div class="selector">
+        <label for="turbineSelect">Turbine</label>
+        <select id="turbineSelect" [(ngModel)]="selectedTurbineId" (ngModelChange)="onTurbineChange($event)">
+          <option *ngFor="let item of statusList; trackBy: trackById" [value]="item.turbineId">
+            {{ item.name || ('T-' + item.turbineId) }} · {{ item.farm }}
+          </option>
+        </select>
+      </div>
+    </div>
 
-  <div class="grid">
-    <mat-card>
-      <mat-card-title>Wind Speed</mat-card-title>
-      <p>{{ latest.windSpeed }} m/s</p>
-    </mat-card>
+    <div class="pulse-grid">
+      <div class="pulse-card">
+        <div class="pulse-title">Health</div>
+        <div class="pulse-value" [ngClass]="getHealthClass(selectedStatus)">
+          {{ selectedStatus?.health || 'No Data' }}
+        </div>
+        <div class="pulse-meta">Latest status</div>
+      </div>
+      <div class="pulse-card">
+        <div class="pulse-title">Wind speed</div>
+        <div class="pulse-value">{{ selectedStatus?.windSpeed | number: '1.0-1' }} m/s</div>
+        <div class="pulse-meta">Current gusts</div>
+      </div>
+      <div class="pulse-card">
+        <div class="pulse-title">Rotor speed</div>
+        <div class="pulse-value">{{ selectedStatus?.rotorSpeed | number: '1.0-1' }} rpm</div>
+        <div class="pulse-meta">Rotation</div>
+      </div>
+      <div class="pulse-card highlight">
+        <div class="pulse-title">Power output</div>
+        <div class="pulse-value">{{ selectedStatus?.powerOutput | number: '1.0-0' }} kW</div>
+        <div class="pulse-meta">Net generation</div>
+      </div>
+      <div class="pulse-card">
+        <div class="pulse-title">Temperature</div>
+        <div class="pulse-value">{{ selectedStatus?.temperature | number: '1.0-1' }} °C</div>
+        <div class="pulse-meta">Gearbox</div>
+      </div>
+      <div class="pulse-card">
+        <div class="pulse-title">Vibration</div>
+        <div class="pulse-value">{{ selectedStatus?.vibration | number: '1.0-2' }} mm/s</div>
+        <div class="pulse-meta">Bearing</div>
+      </div>
+    </div>
+  </section>
 
-    <mat-card>
-      <mat-card-title>Rotor Speed</mat-card-title>
-      <p>{{ latest.rotorSpeed }} rpm</p>
-    </mat-card>
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <h2>Hourly performance trend</h2>
+        <p>Last 24 hours of averaged telemetry for the selected turbine.</p>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas #trendChart></canvas>
+    </div>
+  </section>
 
-    <mat-card>
-      <mat-card-title>Power Output</mat-card-title>
-      <p>{{ latest.powerOutput }} kW</p>
-    </mat-card>
+  <section class="split-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Fleet status</h2>
+          <p>Latest turbine conditions.</p>
+        </div>
+      </div>
+      <div class="table">
+        <div class="table-row table-head">
+          <div>Turbine</div>
+          <div>Region</div>
+          <div>Power</div>
+          <div>Status</div>
+        </div>
+        <div class="table-row" *ngFor="let item of statusList | slice:0:8; trackBy: trackById">
+          <div>
+            <div class="primary">{{ item.name || ('T-' + item.turbineId) }}</div>
+            <div class="secondary">{{ item.farm }}</div>
+          </div>
+          <div>{{ item.region }}</div>
+          <div>{{ item.powerOutput | number: '1.0-0' }} kW</div>
+          <div>
+            <span class="status-pill" [ngClass]="getHealthClass(item)">{{ item.health }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <mat-card>
-      <mat-card-title>Temperature</mat-card-title>
-      <p>{{ latest.temperature }} °C</p>
-    </mat-card>
-
-    <mat-card>
-      <mat-card-title>Vibration</mat-card-title>
-      <p>{{ latest.vibration }} mm/s</p>
-    </mat-card>
-  </div>
-
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Recent alerts</h2>
+          <p>Latest anomalies flagged by the hourly job.</p>
+        </div>
+      </div>
+      <div class="alerts-list" *ngIf="alerts.length > 0; else emptyAlerts">
+        <div class="alert-item" *ngFor="let alert of alerts">
+          <div class="alert-title">
+            {{ alert.name || ('T-' + alert.turbineId) }}
+            <span>{{ alert.farm }}</span>
+          </div>
+          <div class="alert-meta">
+            Avg power {{ alert.avgPower | number: '1.0-0' }} kW · Score {{ alert.anomalyScore }}
+          </div>
+        </div>
+      </div>
+      <ng-template #emptyAlerts>
+        <div class="empty-state">No anomalies detected in the latest cycle.</div>
+      </ng-template>
+    </div>
+  </section>
 </div>

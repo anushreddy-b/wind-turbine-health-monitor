@@ -1,11 +1,59 @@
-<h2>Turbines</h2>
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h2>Fleet overview</h2>
+      <p>Filter turbines by region and farm to drill into operations.</p>
+    </div>
+    <div class="filters">
+      <div class="filter">
+        <label>Region</label>
+        <select [(ngModel)]="selectedRegion" (change)="applyFilters()">
+          <option value="">All regions</option>
+          <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+        </select>
+      </div>
+      <div class="filter">
+        <label>Farm</label>
+        <select [(ngModel)]="selectedFarm" (change)="applyFilters()">
+          <option value="">All farms</option>
+          <option *ngFor="let farm of farms" [value]="farm">{{ farm }}</option>
+        </select>
+      </div>
+      <button class="clear-btn" type="button" (click)="clearFilters()">Clear</button>
+    </div>
+  </div>
 
-<div *ngIf="turbines.length === 0">
-  Loading turbines...
+  <div *ngIf="filteredList.length === 0" class="empty-state">
+    No turbines match the current filters.
+  </div>
+
+  <div class="grid" *ngIf="filteredList.length > 0">
+    <div class="card" *ngFor="let t of filteredList">
+      <div class="card-header">
+        <div>
+          <div class="title">{{ t.name || ('T-' + t.turbineId) }}</div>
+          <div class="subtitle">{{ t.farm }} · {{ t.region }}</div>
+        </div>
+        <span class="status-pill" [ngClass]="getHealthClass(t.health)">{{ t.health }}</span>
+      </div>
+      <div class="metrics">
+        <div>
+          <span>Power</span>
+          <strong>{{ t.powerOutput | number: '1.0-0' }} kW</strong>
+        </div>
+        <div>
+          <span>Wind</span>
+          <strong>{{ t.windSpeed | number: '1.0-1' }} m/s</strong>
+        </div>
+        <div>
+          <span>Rotor</span>
+          <strong>{{ t.rotorSpeed | number: '1.0-1' }} rpm</strong>
+        </div>
+      </div>
+      <div class="meta">
+        Capacity {{ t.capacityMw | number: '1.0-1' }} MW ·
+        Last update {{ t.timestamp ? (t.timestamp | date: 'short') : 'n/a' }}
+      </div>
+    </div>
+  </div>
 </div>
-
-<ul *ngIf="turbines.length > 0">
-  <li *ngFor="let t of turbines">
-    {{ t.turbineId }} - {{ t.name }} ({{ t.farm }}, {{ t.region }})
-  </li>
-</ul>

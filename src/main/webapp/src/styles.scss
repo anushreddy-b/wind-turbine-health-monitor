@@ -1,4 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global theme */
+:root {
+  --surface: #f8fafc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --success: #16a34a;
+  --warning: #f97316;
+  --danger: #ef4444;
+  --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-strong: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: var(--text-primary);
+  background: var(--surface);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+button, select {
+  font-family: inherit;
+}

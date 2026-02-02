@@ -1,16 +1,41 @@
-<div class="layout">
-
+<div class="app-shell">
   <aside class="sidebar">
-    <h2>WindFarm UI</h2>
-    <nav>
-      <a routerLink="/" routerLinkActive="active">Dashboard</a>
+    <div class="brand">
+      <div class="brand-mark">WT</div>
+      <div class="brand-text">
+        <div class="brand-title">WindWatch</div>
+        <div class="brand-subtitle">Health Monitor</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Dashboard
+      </a>
       <a routerLink="/turbines" routerLinkActive="active">Turbines</a>
       <a routerLink="/alerts" routerLinkActive="active">Alerts</a>
     </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-dot"></div>
+      <span>Live monitoring</span>
+    </div>
   </aside>
 
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <div class="page-title">Real-Time Wind Turbine Health</div>
+        <div class="page-subtitle">Operations dashboard and anomaly tracking</div>
+      </div>
+      <div class="topbar-meta">
+        <span class="chip">Region Fleet</span>
+        <span class="timestamp">Updated live</span>
+      </div>
+    </header>
 
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

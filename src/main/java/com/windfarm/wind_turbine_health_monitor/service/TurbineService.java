@@ -18,4 +18,28 @@ public class TurbineService {
     public List<Turbine> getAll() {
         return repo.findAll();
     }
+
+    public List<Turbine> getByRegionFarm(String region, String farm) {
+        boolean hasRegion = region != null && !region.isBlank();
+        boolean hasFarm = farm != null && !farm.isBlank();
+
+        if (hasRegion && hasFarm) {
+            return repo.findByRegionIgnoreCaseAndFarmIgnoreCase(region, farm);
+        }
+        if (hasRegion) {
+            return repo.findByRegionIgnoreCase(region);
+        }
+        if (hasFarm) {
+            return repo.findByFarmIgnoreCase(farm);
+        }
+        return repo.findAll();
+    }
+
+    public List<String> getRegions() {
+        return repo.findDistinctRegions();
+    }
+
+    public List<String> getFarms() {
+        return repo.findDistinctFarms();
+    }
 }

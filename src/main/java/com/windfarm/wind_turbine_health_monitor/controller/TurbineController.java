@@ -21,4 +21,22 @@ public class TurbineController {
     public List<Turbine> getAll() {
         return service.getAll();
     }
+
+    @GetMapping("/filter")
+    public List<Turbine> filter(
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) String farm
+    ) {
+        return service.getByRegionFarm(region, farm);
+    }
+
+    @GetMapping("/regions")
+    public List<String> getRegions() {
+        return service.getRegions();
+    }
+
+    @GetMapping("/farms")
+    public List<String> getFarms() {
+        return service.getFarms();
+    }
 }
