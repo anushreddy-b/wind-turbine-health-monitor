@@ -1,0 +1,37 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1a237e;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  color: #fff;
+  font-size: 20px;
+}
+
+.sidebar a {
+  display: block;
+  margin-top: 15px;
+  color: #bbdefb;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.sidebar a.active {
+  color: #fff;
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background: #f5f5f5;
+  overflow-y: auto;
+}

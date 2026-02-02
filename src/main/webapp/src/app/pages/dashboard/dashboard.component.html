@@ -1,0 +1,32 @@
+<h1>Wind Turbine Live Dashboard</h1>
+
+<div *ngIf="latest">
+
+  <div class="grid">
+    <mat-card>
+      <mat-card-title>Wind Speed</mat-card-title>
+      <p>{{ latest.windSpeed }} m/s</p>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Rotor Speed</mat-card-title>
+      <p>{{ latest.rotorSpeed }} rpm</p>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Power Output</mat-card-title>
+      <p>{{ latest.powerOutput }} kW</p>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Temperature</mat-card-title>
+      <p>{{ latest.temperature }} °C</p>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Vibration</mat-card-title>
+      <p>{{ latest.vibration }} mm/s</p>
+    </mat-card>
+  </div>
+
+</div>

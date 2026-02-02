@@ -1,0 +1,11 @@
+<h2>Turbines</h2>
+
+<div *ngIf="turbines.length === 0">
+  Loading turbines...
+</div>
+
+<ul *ngIf="turbines.length > 0">
+  <li *ngFor="let t of turbines">
+    {{ t.turbineId }} - {{ t.name }} ({{ t.farm }}, {{ t.region }})
+  </li>
+</ul>
