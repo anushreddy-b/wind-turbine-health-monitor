@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.windfarm.wind_turbine_health_monitor.WindTurbineHealthMonitorApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.073 s -- in com.windfarm.wind_turbine_health_monitor.WindTurbineHealthMonitorApplicationTests
