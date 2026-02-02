@@ -9,10 +9,13 @@
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/repository/TelemetryHourlyRepository.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/repository/TurbineRepository.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/WindTurbineHealthMonitorApplication.java
+/home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/dto/TelemetryOverviewDTO.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/service/AggregationService.java
+/home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/dto/TurbineStatusDTO.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/model/Turbine.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/service/TelemetryService.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/repository/TelemetryRawRepository.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/controller/TurbineController.java
+/home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/dto/AlertDTO.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/controller/TelemetryController.java
 /home/zadmin/Desktop/workspace/wind-turbine-health-monitor/src/main/java/com/windfarm/wind_turbine_health_monitor/model/TelemetryHourly.java
