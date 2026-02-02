@@ -21,4 +21,42 @@ public class TurbineController {
     public List<Turbine> getAll() {
         return service.getAll();
     }
+
+    @GetMapping("/{id}")
+    public Turbine getById(@PathVariable Integer id) {
+        return service.getById(id);
+    }
+
+    @PostMapping
+    public Turbine create(@RequestBody Turbine turbine) {
+        return service.create(turbine);
+    }
+
+    @PutMapping("/{id}")
+    public Turbine update(@PathVariable Integer id, @RequestBody Turbine turbine) {
+        return service.update(id, turbine);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        service.delete(id);
+    }
+
+    @GetMapping("/filter")
+    public List<Turbine> filter(
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) String farm
+    ) {
+        return service.getByRegionFarm(region, farm);
+    }
+
+    @GetMapping("/regions")
+    public List<String> getRegions() {
+        return service.getRegions();
+    }
+
+    @GetMapping("/farms")
+    public List<String> getFarms() {
+        return service.getFarms();
+    }
 }

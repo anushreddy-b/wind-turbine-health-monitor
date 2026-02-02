@@ -1,0 +1,45 @@
+<div class="ingest-page">
+  <div class="header">
+    <div>
+      <h2>Telemetry ingestion</h2>
+      <p>Manually insert high-frequency telemetry for testing.</p>
+    </div>
+  </div>
+
+  <div class="form-panel">
+    <div class="form-grid">
+      <label>
+        Turbine ID
+        <input type="number" [(ngModel)]="payload.turbineId" placeholder="1">
+      </label>
+      <label>
+        Timestamp
+        <input type="datetime-local" [(ngModel)]="payload.timestamp">
+      </label>
+      <label>
+        Wind Speed (m/s)
+        <input type="number" [(ngModel)]="payload.windSpeed" placeholder="7.5">
+      </label>
+      <label>
+        Rotor Speed (rpm)
+        <input type="number" [(ngModel)]="payload.rotorSpeed" placeholder="12.4">
+      </label>
+      <label>
+        Power Output (kW)
+        <input type="number" [(ngModel)]="payload.powerOutput" placeholder="250">
+      </label>
+      <label>
+        Temperature (°C)
+        <input type="number" [(ngModel)]="payload.temperature" placeholder="32">
+      </label>
+      <label>
+        Vibration (mm/s)
+        <input type="number" [(ngModel)]="payload.vibration" placeholder="1.2">
+      </label>
+    </div>
+    <div class="actions">
+      <button type="button" class="primary-btn" (click)="submit()">Submit telemetry</button>
+      <span class="message" *ngIf="message">{{ message }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="alerts-page">
+  <div class="header">
+    <div>
+      <h2>Alert center</h2>
+      <p>Hourly anomaly detections across the fleet.</p>
+    </div>
+  </div>
+
+  <div *ngIf="alerts.length === 0" class="empty-state">
+    No alerts detected in the latest aggregation window.
+  </div>
+
+  <div class="table" *ngIf="alerts.length > 0">
+    <div class="table-row table-head">
+      <div>Turbine</div>
+      <div>Region</div>
+      <div>Avg power</div>
+      <div>Score</div>
+      <div>Hour</div>
+    </div>
+    <div class="table-row" *ngFor="let alert of alerts">
+      <div>
+        <div class="primary">{{ alert.name || ('T-' + alert.turbineId) }}</div>
+        <div class="secondary">{{ alert.farm }}</div>
+      </div>
+      <div>{{ alert.region }}</div>
+      <div>{{ alert.avgPower | number: '1.0-0' }} kW</div>
+      <div><span class="badge">Anomaly</span></div>
+      <div>{{ alert.hour | date: 'short' }}</div>
+    </div>
+  </div>
+</div>
