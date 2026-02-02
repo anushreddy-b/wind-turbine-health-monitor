@@ -19,6 +19,14 @@ export class TurbineListComponent implements OnInit {
   farms: string[] = [];
   selectedRegion = '';
   selectedFarm = '';
+  formState = {
+    turbineId: null as number | null,
+    name: '',
+    farm: '',
+    region: '',
+    capacityMw: null as number | null
+  };
+  formMessage = '';
 
   constructor(
     private turbineService: TurbineService,
@@ -54,6 +62,66 @@ export class TurbineListComponent implements OnInit {
     this.selectedRegion = '';
     this.selectedFarm = '';
     this.applyFilters();
+  }
+
+  startCreate(): void {
+    this.formState = {
+      turbineId: null,
+      name: '',
+      farm: '',
+      region: '',
+      capacityMw: null
+    };
+    this.formMessage = '';
+  }
+
+  startEdit(turbine: TurbineStatus): void {
+    this.formState = {
+      turbineId: turbine.turbineId,
+      name: turbine.name || '',
+      farm: turbine.farm || '',
+      region: turbine.region || '',
+      capacityMw: turbine.capacityMw || null
+    };
+    this.formMessage = '';
+  }
+
+  saveTurbine(): void {
+    const payload = {
+      name: this.formState.name,
+      farm: this.formState.farm,
+      region: this.formState.region,
+      capacityMw: this.formState.capacityMw
+    };
+
+    const request = this.formState.turbineId
+      ? this.turbineService.update(this.formState.turbineId, payload)
+      : this.turbineService.create(payload);
+
+    request.subscribe({
+      next: () => {
+        this.formMessage = this.formState.turbineId
+          ? 'Turbine updated successfully.'
+          : 'Turbine created successfully.';
+        this.startCreate();
+        this.loadData();
+      },
+      error: () => {
+        this.formMessage = 'Unable to save turbine. Please try again.';
+      }
+    });
+  }
+
+  deleteTurbine(turbineId: number): void {
+    this.turbineService.delete(turbineId).subscribe({
+      next: () => {
+        this.formMessage = 'Turbine deleted successfully.';
+        this.loadData();
+      },
+      error: () => {
+        this.formMessage = 'Unable to delete turbine.';
+      }
+    });
   }
 
   getHealthClass(health?: string): string {

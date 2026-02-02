@@ -38,6 +38,10 @@ public class TelemetryService {
         return repo.findTopByTurbineIdOrderByTimestampDesc(turbineId);
     }
 
+    public TelemetryRaw ingest(TelemetryRaw telemetry) {
+        return repo.save(telemetry);
+    }
+
     public List<TurbineStatusDTO> getStatusList() {
         List<Turbine> turbines = turbineRepo.findAll();
         List<TurbineStatusDTO> result = new ArrayList<>();

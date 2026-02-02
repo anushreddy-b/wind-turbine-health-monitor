@@ -26,6 +26,11 @@ public class TelemetryController {
         return service.getLatest(id);
     }
 
+    @PostMapping("/raw")
+    public TelemetryRaw ingest(@RequestBody TelemetryRaw telemetry) {
+        return service.ingest(telemetry);
+    }
+
     @GetMapping("/status")
     public List<TurbineStatusDTO> getStatus() {
         return service.getStatusList();

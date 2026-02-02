@@ -15,6 +15,22 @@ export class TurbineService {
     return this.http.get<any[]>(this.api);
   }
 
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.api}/${id}`);
+  }
+
+  create(payload: any): Observable<any> {
+    return this.http.post<any>(this.api, payload);
+  }
+
+  update(id: number, payload: any): Observable<any> {
+    return this.http.put<any>(`${this.api}/${id}`, payload);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
+  }
+
   getRegions(): Observable<string[]> {
     return this.http.get<string[]>(`${this.api}/regions`);
   }

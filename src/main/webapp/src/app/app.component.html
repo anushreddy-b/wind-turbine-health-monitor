@@ -14,6 +14,8 @@
       </a>
       <a routerLink="/turbines" routerLinkActive="active">Turbines</a>
       <a routerLink="/alerts" routerLinkActive="active">Alerts</a>
+      <a routerLink="/ingest" routerLinkActive="active">Ingest</a>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
     </nav>
 
     <div class="sidebar-footer">
@@ -31,6 +33,10 @@
       <div class="topbar-meta">
         <span class="chip">Region Fleet</span>
         <span class="timestamp">Updated live</span>
+        <div class="user" *ngIf="userName">
+          <span>{{ userName }}</span>
+          <button type="button" (click)="logout()">Logout</button>
+        </div>
       </div>
     </header>
 

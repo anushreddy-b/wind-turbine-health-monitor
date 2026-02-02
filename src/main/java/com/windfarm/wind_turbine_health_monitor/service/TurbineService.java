@@ -19,6 +19,28 @@ public class TurbineService {
         return repo.findAll();
     }
 
+    public Turbine getById(Integer id) {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Turbine not found"));
+    }
+
+    public Turbine create(Turbine turbine) {
+        turbine.setTurbineId(null);
+        return repo.save(turbine);
+    }
+
+    public Turbine update(Integer id, Turbine turbine) {
+        Turbine existing = getById(id);
+        existing.setName(turbine.getName());
+        existing.setFarm(turbine.getFarm());
+        existing.setRegion(turbine.getRegion());
+        existing.setCapacityMw(turbine.getCapacityMw());
+        return repo.save(existing);
+    }
+
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
     public List<Turbine> getByRegionFarm(String region, String farm) {
         boolean hasRegion = region != null && !region.isBlank();
         boolean hasFarm = farm != null && !farm.isBlank();

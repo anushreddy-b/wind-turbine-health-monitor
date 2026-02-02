@@ -23,6 +23,40 @@
     </div>
   </div>
 
+  <div class="form-panel">
+    <div class="form-header">
+      <div>
+        <h3>{{ formState.turbineId ? 'Edit turbine' : 'Add turbine' }}</h3>
+        <p>Manage turbine metadata and capacity.</p>
+      </div>
+      <button class="ghost-btn" type="button" (click)="startCreate()">New</button>
+    </div>
+    <div class="form-grid">
+      <label>
+        Name
+        <input type="text" [(ngModel)]="formState.name" placeholder="Turbine name">
+      </label>
+      <label>
+        Farm
+        <input type="text" [(ngModel)]="formState.farm" placeholder="Farm name">
+      </label>
+      <label>
+        Region
+        <input type="text" [(ngModel)]="formState.region" placeholder="Region">
+      </label>
+      <label>
+        Capacity (MW)
+        <input type="number" [(ngModel)]="formState.capacityMw" placeholder="2.5">
+      </label>
+    </div>
+    <div class="form-actions">
+      <button class="primary-btn" type="button" (click)="saveTurbine()">
+        {{ formState.turbineId ? 'Update turbine' : 'Create turbine' }}
+      </button>
+      <span class="form-message" *ngIf="formMessage">{{ formMessage }}</span>
+    </div>
+  </div>
+
   <div *ngIf="filteredList.length === 0" class="empty-state">
     No turbines match the current filters.
   </div>
@@ -34,7 +68,11 @@
           <div class="title">{{ t.name || ('T-' + t.turbineId) }}</div>
           <div class="subtitle">{{ t.farm }} · {{ t.region }}</div>
         </div>
-        <span class="status-pill" [ngClass]="getHealthClass(t.health)">{{ t.health }}</span>
+        <div class="card-actions">
+          <span class="status-pill" [ngClass]="getHealthClass(t.health)">{{ t.health }}</span>
+          <button class="icon-btn" type="button" (click)="startEdit(t)">Edit</button>
+          <button class="icon-btn danger" type="button" (click)="deleteTurbine(t.turbineId)">Delete</button>
+        </div>
       </div>
       <div class="metrics">
         <div>

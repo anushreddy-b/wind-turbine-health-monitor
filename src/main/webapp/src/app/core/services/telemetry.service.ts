@@ -66,4 +66,8 @@ export class TelemetryService {
       `${this.base}/hourly/${turbineId}?limit=${limit}`
     );
   }
+
+  ingestRaw(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.base}/raw`, payload);
+  }
 }

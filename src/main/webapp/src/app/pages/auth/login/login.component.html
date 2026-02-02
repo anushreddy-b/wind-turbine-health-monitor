@@ -1,0 +1,48 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-mark">WT</div>
+      <div>
+        <div class="title">WindWatch</div>
+        <div class="subtitle">Operations Login</div>
+      </div>
+    </div>
+
+    <h2>Sign in</h2>
+    <p class="hint">Access the real-time monitoring console.</p>
+
+    <label>
+      Username
+      <input type="text" [(ngModel)]="username" placeholder="ops.engineer">
+    </label>
+    <label>
+      Password
+      <input type="password" [(ngModel)]="password" placeholder="••••••••">
+    </label>
+
+    <div class="options">
+      <label class="remember">
+        <input type="checkbox" [(ngModel)]="remember">
+        Remember me
+      </label>
+      <span class="link">Forgot password?</span>
+    </div>
+
+    <div class="demo">
+      Demo login: <strong>root</strong> / <strong>root</strong>
+    </div>
+    <button type="button" (click)="submit()">Sign in</button>
+    <div class="message" *ngIf="message">{{ message }}</div>
+  </div>
+  <div class="login-panel">
+    <div class="panel-inner">
+      <h3>Real-time turbine health</h3>
+      <p>Monitor performance, detect anomalies, and plan maintenance from a single dashboard.</p>
+      <ul>
+        <li>Live telemetry snapshots</li>
+        <li>Hourly aggregation trends</li>
+        <li>Regional analytics</li>
+      </ul>
+    </div>
+  </div>
+</div>
